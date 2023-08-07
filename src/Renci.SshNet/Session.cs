@@ -637,6 +637,11 @@ namespace Renci.SshNet
                     // ToDo: Make message pump async, to not consume a thread for every session
                     ThreadAbstraction.ExecuteThreadLongRunning(MessageListener);
 
+                    if (ConnectionInfo.InitiateKeyExchange)
+                    {
+                        SendMessage(ClientInitMessage);
+                    }
+
                     // Wait for key exchange to be completed
                     WaitOnHandle(_keyExchangeCompletedWaitHandle);
 
